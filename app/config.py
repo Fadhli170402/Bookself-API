@@ -1,0 +1,11 @@
+SECRET_KEY = 'abcd1234'
+JWT_EXPIRED_SECONDS = 3600
+
+DB_USER = "root"
+DB_PASSWORD = ""
+DB_HOST = "localhost"
+DB_NAME = "bookself"
+
+SQLALCHEMY_DATABASE_URI = f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}"
+JWT_SECRET_KEY = 'supersecretkey'
+SQLALCHEMY_TRACK_MODIFICATIONS = False
