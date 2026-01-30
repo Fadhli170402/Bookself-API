@@ -1,5 +1,6 @@
 from flask import request, jsonify
-from app.services.auth_service import login_user
+from app.services.auth_service import login_user, refresh_token
+
 
 def login():
     data = request.get_json()
@@ -15,5 +16,9 @@ def login():
     return jsonify({
         "status": "success",
         "message": "login successfull",
-        "token": token
+        "token": token["access_token"],
+        "refresh_token" : token["refresh_token"]
     }), 200
+
+def refresh():
+    return refresh_token()
