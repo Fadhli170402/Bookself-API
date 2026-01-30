@@ -2,8 +2,10 @@
 import json
 from flask import request, jsonify
 from app.services.user_service import add_user, delete_user, edit_user_by_id, fetch_all_users, fetch_user_by_id
-# from app.models.user import User
+from app.middlewares.auth_middleware import role_required
 
+
+@role_required('user')
 def create_user():
     data = request.get_json()
     users = add_user(data)
@@ -57,6 +59,7 @@ def get_user_by_id(user_id):
         }
     }), 200
 
+@role_required('user')
 def editUserById(user_id):
     data = request.get_json()
     user = edit_user_by_id(user_id, data)

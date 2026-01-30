@@ -1,5 +1,5 @@
 from werkzeug.security import generate_password_hash
-from app.models.user import User
+from app.models import User
 from app.extensions import db
 from datetime import datetime
 import nanoid

@@ -1,9 +1,11 @@
 from flask import jsonify
 from werkzeug.security import check_password_hash
-from app.data.users import users
+# from app.data.users import users
 from datetime import datetime, timedelta
 from app.config import SECRET_KEY, JWT_EXPIRED_SECONDS
-from app.models.user import User
+# from app.models.revoked_token import RevokedToken
+# from app.models.user import User
+from app.models import User, RevokedToken
 from app.extensions import db
 from flask_jwt_extended import create_access_token, create_refresh_token, get_jwt, get_jwt_identity, jwt_required
 
@@ -47,3 +49,16 @@ def refresh_token():
         }), 200
     
     return inner()
+
+
+def logout():
+    jwt_data = get_jwt()
+
+    revoked = RevokedToken(
+        jti = jwt_data["jti"],
+        expires_at = datetime.fromtimestamp(jwt_data["exp"])
+    )
+
+    db.session.add(revoked)
+    db.session.commit()
+    

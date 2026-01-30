@@ -5,3 +5,9 @@ from flask_jwt_extended import JWTManager
 db = SQLAlchemy()
 migrate = Migrate()
 jwt = JWTManager()
+
+@jwt.token_in_blocklist_loader
+def check_if_token_revoked(jwt_header, jwt_payload):
+    from app.models.revoked_token import RevokedToken
+    jti = jwt_payload["jti"]
+    return RevokedToken.query.filter_by(jti=jti).first() is not None

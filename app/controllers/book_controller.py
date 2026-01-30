@@ -3,7 +3,7 @@ from app.services.book_service import add_book, fetch_all_book, get_book_by_id, 
 from app.models.book import Book
 from app.middlewares.auth_middleware import role_required
 
-@role_required('admin')
+# @role_required('admin')
 def create_book():
     data  = request.get_json()
     result = add_book(data)

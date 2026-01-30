@@ -1,4 +1,4 @@
-from app.models.book import Book
+from app.models import Book
 from app.extensions import db
 from datetime import datetime
 import nanoid
